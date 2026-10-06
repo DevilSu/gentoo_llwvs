@@ -4,12 +4,12 @@
 
 | <span style="color: #EBCB8B;">**Field**</span> | <span style="color: #EBCB8B;">**Details**</span> |
 | :--- | :--- |
-| <span style="color: #EBCB8B;">**Subproject**</span> | `sw_video_pipeline` (Stage 1 of Project Gentoo LLWVS) |
+| <span style="color: #EBCB8B;">**Subproject**</span> | `1_sw_video_pipeline` (Stage 1 of Project Gentoo LLWVS) |
 | <span style="color: #EBCB8B;">**Author**</span> | devilsu |
 | <span style="color: #EBCB8B;">**Created**</span> | 2026-10-06 09:40 PDT |
-| <span style="color: #EBCB8B;">**Modified**</span> | 2026-10-06 09:40 PDT |
-| <span style="color: #EBCB8B;">**Version**</span> | v1.0.0 |
-| <span style="color: #EBCB8B;">**Status**</span> | In Review 2026-10-06 09:40:00 |
+| <span style="color: #EBCB8B;">**Modified**</span> | 2026-10-06 09:55 PDT |
+| <span style="color: #EBCB8B;">**Version**</span> | v1.0.1 |
+| <span style="color: #EBCB8B;">**Status**</span> | In Review 2026-10-06 09:55:00 |
 
 ---
 

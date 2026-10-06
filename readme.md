@@ -2,7 +2,7 @@
 
 **Project Gentoo LLWVS** (Low Latency Wireless Video Stream) is an open-source hardware/software co-design platform engineered for ultra-low latency 1080p video streaming over SDR (Software Defined Radio) RF channels.
 
-Targeting **Dual ADALM-Pluto SDRs**, the **Orange Pi 5** (Rockchip RK3588 SoC with hardware VPU), and Linux host workstations, Gentoo LLWVS systematically compresses the traditional broadcast DATV latency envelope (typically 800 ms to 2500 ms) down to real-time FPV response times (targeting 40 ms to 100 ms glass-to-glass).
+Targeting an **Orange Pi 5** (Rockchip RK3588 SoC with hardware VPU) paired with an **ADALM-Pluto SDR** for **transmission (TX)**, and a **Linux PC host workstation** paired with a dedicated **ADALM-Pluto SDR** for **reception (RX)**, Gentoo LLWVS systematically compresses the traditional broadcast DATV latency envelope (typically 800 ms to 2500 ms) down to real-time FPV response times (targeting 40 ms to 100 ms glass-to-glass).
 
 ---
 
@@ -16,25 +16,25 @@ gentoo_llwvs/
 ├── .gitignore                                      # Build, log, and capture recording ignore rules
 │
 ├── blueprints/                                     # Architectural blueprints & engineering specifications
-│   ├── sw_video_pipeline/                          # Stage 1: Software capture, encode & latency harness
+│   ├── 1_sw_video_pipeline/                        # Stage 1: Software capture, encode & latency harness
 │   │   ├── overall.md                              # Master cross-phase architecture blueprint
 │   │   ├── phase_1.md                              # Detailed execution blueprint for Stage 1
 │   │   └── summary.md                              # Post-execution verified benchmark report
-│   ├── wired_pluto_loopback/                       # Stage 2: Dual PlutoSDR wired loopback baseline
-│   ├── wireless_rf_link/                           # Stage 3: Wireless over-the-air link & FEC tuning
-│   ├── orangepi5_mpp_tx/                           # Stage 4: Orange Pi 5 RK3588 hardware VPU migration
-│   └── fpv_latency_optimization/                   # Stage 5: Aggressive FPV latency optimization
+│   ├── 2_wired_pluto_loopback/                     # Stage 2: Dual PlutoSDR wired loopback baseline
+│   ├── 3_wireless_rf_link/                         # Stage 3: Wireless over-the-air link & FEC tuning
+│   ├── 4_orangepi5_mpp_tx/                         # Stage 4: Orange Pi 5 RK3588 hardware VPU migration
+│   └── 5_fpv_latency_optimization/                 # Stage 5: Aggressive FPV latency optimization
 │
 ├── hw/                                             # Hardware definitions, carrier pinouts, RF configs
 │   ├── common/                                     # Shared board profiles & RF parameters
 │   │   ├── board_files/                            # Orange Pi 5 & PlutoSDR power/pinout specs
 │   │   └── rf_configs/                             # Attenuators, antenna charts & channel allocations
 │   └── subprojects/                                # Subproject hardware modules
-│       ├── sw_video_pipeline/                      # Sensor timing & UVC bandwidth requirements
-│       ├── wired_pluto_loopback/                   # GNU Radio flowgraphs (dvbs_tx.grc, dvbs_rx.grc)
-│       ├── wireless_rf_link/                       # Antenna gain models & RF band limits
-│       ├── orangepi5_mpp_tx/                       # OPi5 carrier thermal profiles & heatsink specs
-│       └── fpv_latency_optimization/               # MIPI-CSI daughterboard pinouts & schematics
+│       ├── 1_sw_video_pipeline/                    # Sensor timing & UVC bandwidth requirements
+│       ├── 2_wired_pluto_loopback/                 # GNU Radio flowgraphs (dvbs_tx.grc, dvbs_rx.grc)
+│       ├── 3_wireless_rf_link/                     # Antenna gain models & RF band limits
+│       ├── 4_orangepi5_mpp_tx/                     # OPi5 carrier thermal profiles & heatsink specs
+│       └── 5_fpv_latency_optimization/             # MIPI-CSI daughterboard pinouts & schematics
 │
 └── sw/                                             # Embedded software, drivers, tests & benchmarks
     ├── common/                                     # Shared testing utilities & protocol wrappers
@@ -45,11 +45,11 @@ gentoo_llwvs/
     │       ├── rtp_packetizer.py                   # Lightweight RTP transport wrapper
     │       └── nalu_parser.py                      # H.264/H.265 NAL unit boundary extractor
     └── subprojects/                                # Subproject software packages
-        ├── sw_video_pipeline/                      # Stage 1 software pipeline & benchmark scripts
-        ├── wired_pluto_loopback/                   # Stage 2 dual Pluto wired loopback test suites
-        ├── wireless_rf_link/                       # Stage 3 wireless link monitor & FEC switcher
-        ├── orangepi5_mpp_tx/                       # Stage 4 Rockchip MPP hardware encoder & deployer
-        └── fpv_latency_optimization/               # Stage 5 intra-refresh slicing & KMS/DRM display
+        ├── 1_sw_video_pipeline/                    # Stage 1 software pipeline & benchmark scripts
+        ├── 2_wired_pluto_loopback/                 # Stage 2 dual Pluto wired loopback test suites
+        ├── 3_wireless_rf_link/                     # Stage 3 wireless link monitor & FEC switcher
+        ├── 4_orangepi5_mpp_tx/                     # Stage 4 Rockchip MPP hardware encoder & deployer
+        └── 5_fpv_latency_optimization/             # Stage 5 intra-refresh slicing & KMS/DRM display
 ```
 
 ---
@@ -62,22 +62,22 @@ graph LR
     classDef next fill:#88C0D0,stroke:#81A1C1,stroke-width:2px,color:#2E3440;
     classDef future fill:#3B4252,stroke:#D8DEE9,stroke-width:1px,color:#D8DEE9;
 
-    S1["<b>Stage 1: SW Pipeline</b><br/>sw_video_pipeline<br/>Codec & Latency Harness"]:::next -->
-    S2["<b>Stage 2: Wired SDR</b><br/>wired_pluto_loopback<br/>Dual Pluto Coax Baseline"]:::future -->
-    S3["<b>Stage 3: Wireless RF</b><br/>wireless_rf_link<br/>OTA Transmission & FEC"]:::future -->
-    S4["<b>Stage 4: Orange Pi 5</b><br/>orangepi5_mpp_tx<br/>RK3588 Hardware VPU"]:::future -->
-    S5["<b>Stage 5: Latency Opt</b><br/>fpv_latency_optimization<br/>Sub-100ms FPV Tuning"]:::future
+    S1["<b>Stage 1: SW Pipeline</b><br/>1_sw_video_pipeline<br/>Codec & Latency Harness"]:::next -->
+    S2["<b>Stage 2: Wired SDR</b><br/>2_wired_pluto_loopback<br/>Dual Pluto Coax Baseline"]:::future -->
+    S3["<b>Stage 3: Wireless RF</b><br/>3_wireless_rf_link<br/>OTA Transmission & FEC"]:::future -->
+    S4["<b>Stage 4: Orange Pi 5</b><br/>4_orangepi5_mpp_tx<br/>RK3588 Hardware VPU"]:::future -->
+    S5["<b>Stage 5: Latency Opt</b><br/>5_fpv_latency_optimization<br/>Sub-100ms FPV Tuning"]:::future
 ```
 
 ### Subproject Breakdown & Current Status
 
 | Stage | Subproject | Description | Status | Primary Blueprint |
 | :---: | :--- | :--- | :---: | :--- |
-| **Stage 1** | **`sw_video_pipeline`** | Software video capture, zero-latency encoding (H.264/H.265/MJPEG), UDP/RTP transport, zero-buffer playback, and automated millisecond optical latency benchmark harness. | <span style="color: #88C0D0;">**Starting Next**</span> | [overall.md](blueprints/sw_video_pipeline/overall.md) |
-| **Stage 2** | **`wired_pluto_loopback`** | Dual PlutoSDR wired RF loopback via coaxial cable and 30–40 dB attenuators. Recreates standard DVB-S modulation (`dvbs_tx.grc`, `leandvbtx`) to establish baseline DATV RF latency. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/wired_pluto_loopback/overall.md) |
-| **Stage 3** | **`wireless_rf_link`** | Wireless over-the-air link transition using tuned antennas. Evaluates amateur/ISM band propagation, RSSI/SNR stability, and FEC code rate impact on packet loss and jitter. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/wireless_rf_link/overall.md) |
-| **Stage 4** | **`orangepi5_mpp_tx`** | Transmitter migration to Orange Pi 5. Utilizes Rockchip MPP hardware VPU acceleration for zero-latency 1080p encoding streaming to PlutoSDR over USB 3.0. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/orangepi5_mpp_tx/overall.md) |
-| **Stage 5** | **`fpv_latency_optimization`** | Aggressive latency reduction: intra-refresh slicing (zero I-frame burst), raw NALU/RTP streaming (bypassing MPEG-TS), MIPI-CSI camera ingest (<10 ms), and Linux KMS/DRM zero-copy display. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/fpv_latency_optimization/overall.md) |
+| **Stage 1** | **`1_sw_video_pipeline`** | Software video capture, zero-latency encoding (H.264/H.265/MJPEG), UDP/RTP transport, zero-buffer playback, and automated millisecond optical latency benchmark harness. | <span style="color: #88C0D0;">**Starting Next**</span> | [overall.md](blueprints/1_sw_video_pipeline/overall.md) |
+| **Stage 2** | **`2_wired_pluto_loopback`** | Dual PlutoSDR wired RF loopback via coaxial cable and 30–40 dB attenuators. Recreates standard DVB-S modulation (`dvbs_tx.grc`, `leandvbtx`) to establish baseline DATV RF latency. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/2_wired_pluto_loopback/overall.md) |
+| **Stage 3** | **`3_wireless_rf_link`** | Wireless over-the-air link transition using tuned antennas. Evaluates amateur/ISM band propagation, RSSI/SNR stability, and FEC code rate impact on packet loss and jitter. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/3_wireless_rf_link/overall.md) |
+| **Stage 4** | **`4_orangepi5_mpp_tx`** | Transmitter migration to Orange Pi 5. Utilizes Rockchip MPP hardware VPU acceleration for zero-latency 1080p encoding streaming to PlutoSDR over USB 3.0. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/4_orangepi5_mpp_tx/overall.md) |
+| **Stage 5** | **`5_fpv_latency_optimization`** | Aggressive latency reduction: intra-refresh slicing (zero I-frame burst), raw NALU/RTP streaming (bypassing MPEG-TS), MIPI-CSI camera ingest (<10 ms), and Linux KMS/DRM zero-copy display. | <span style="color: #EBCB8B;">**Planned**</span> | [overall.md](blueprints/5_fpv_latency_optimization/overall.md) |
 
 ---
 
