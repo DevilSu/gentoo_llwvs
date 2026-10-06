@@ -1,0 +1,53 @@
+# ==============================================================================
+# Gitignore for Project Gentoo LLWVS (SDR, Python, C/C++, GRC, Video)
+# ==============================================================================
+
+# Python caches & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# C / C++ build outputs
+*.o
+*.so
+*.dylib
+*.a
+build/
+bin/
+
+# Video, audio & raw IQ dumps (exclude large capture logs, whitelist test samples)
+*.ts
+*.mp4
+*.mkv
+*.raw
+*.iq
+*.bin
+!samples/*.ts
+!samples/*.bin
+
+# GNU Radio runtime artifacts
+*.grc.bak
+*.pyc
+
+# Logs & temp files
+*.log
+*.tmp
+scratch/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
