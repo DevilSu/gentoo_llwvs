@@ -111,8 +111,8 @@ graph LR
 
 ## 4. Hardware Reference & Lab Configuration
 
-- **Transmitter (TX) SDR**: ADALM-Pluto SDR (Zynq-7010 + AD9363), firmware v0.31+, tuned to carrier frequencies `437 MHz` / `970 MHz` / `1.2 GHz` / `2.4 GHz`.
-- **Receiver (RX) SDR**: Dedicated ADALM-Pluto SDR (Zynq-7010 + AD9363) operated in receive mode.
+- **Transmitter (TX) SDR**: ADALM-Pluto SDR (Zynq-7010 + AD9363), firmware v0.31+, tuned strictly to carrier frequencies `915 MHz` and `2.4 GHz` (license-free ISM bands in the US).
+- **Receiver (RX) SDR**: Dedicated ADALM-Pluto SDR (Zynq-7010 + AD9363) operated in receive mode matching TX carrier frequencies (`915 MHz` / `2.4 GHz`).
 - **Transmitter Compute**: Orange Pi 5 (Rockchip RK3588, 8-core CPU, ARM Mali-G610 GPU, 6 TOPS NPU, VPU with hardware H.264/H.265 multi-stream encoding).
 - **Receiver Compute**: Linux x86_64 host workstation running Ubuntu 22.04 / 24.04 LTS.
 - **Camera Sensors**:
